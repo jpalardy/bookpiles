@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+%html
+  %head
+    <meta charset="utf-8" />
+    %title bookpiles
+    = stylesheet_link_tag 'screen.css', '/facebox/facebox.css', 'master.css', :cache => 'app', :media => 'all'
+    = stylesheet_link_tag 'print.css', :media => 'print'
+    = csrf_meta_tag
+    = yield :head
+  %body
+
+
+    .container
+      #header.span-24
+        = link_to 'bookpiles', root_path, :id => 'logo'
+
+        .logister_links
+          - if logged_in?
+            = link_to current_user.username, ownerships_path(current_user.username)
+            |
+            = link_to "logout", logout_path
+          - else
+            = link_to "register", "#register_form", :rel => "facebox"
+            |
+            = link_to "login", "#login_form", :rel => "facebox"
+
+        #flash{:class => flash.keys.first}
+          = flash.values.first
+
+        = yield :header
+
+      #content.span-24
+        = yield
+
+    .templates.hide
+      = form_tag "/login", :id => "login_form" do
+        %div
+          = label_tag "username", "Username:"
+        %div
+          = text_field_tag "username"
+        %div
+          = submit_tag "login", :name => nil
+      = form_tag "/register", :id => "register_form" do
+        %div
+          = label_tag "username", "Username:"
+        %div
+          = text_field_tag "username"
+          %p.description
+            This is the username you would like to use on bookpiles.
+        %div
+          = label_tag "openid", "OpenID:"
+          = link_to "What is OpenID?", "http://openid.net/get-an-openid/what-is-openid/", :style => "font-weight: normal; font-size: 80%; margin-left: 10px"
+        %div
+          = text_field_tag "openid", '', :style => "width: 350px"
+          %p.description
+            This is your OpenID URL. In many cases, the domain (e.g. myopenid.com, yahoo.com) is sufficient.
+
+        %div
+          = submit_tag "register", :name => nil
+
+    = javascript_include_tag 'jquery-1.4.2.min.js','jquery.hotkeys-0.7.8-packed.js','/facebox/facebox.js','pipes.js','application.js', :cache => 'app'
+    = yield(:page_js)

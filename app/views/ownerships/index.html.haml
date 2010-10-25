@@ -1,0 +1,24 @@
+
+- content_for :head do
+  = auto_discovery_link_tag(:atom, ownerships_url(@user.username, :format => 'atom'), :title => "#{@user.username}'s books")
+
+- content_for :header do
+  #controls.span-24
+    %ul.statuses
+      - Status.all.each do |status|
+        %li{:class => "status_#{status} tab"}
+          = link_to(status, "##{status}", :onclick => "set_status('#{status}'); return false;")
+          %span.count
+    .search
+      %input{:type => "search", :results => "results", :placeholder => "Filter", :onclick => "if(!this.value) { set_query(this.value) }", :onchange => "set_query(this.value)", :size => 30}
+    - if current_user == @user
+      .actions
+        = link_to "add a book", amazon_path, :id => "amazon_search"
+
+- content_for :page_js do
+  = javascript_include_tag "ownerships.js"
+  = javascript_tag do
+    - if logged_in?
+      html.book_actions = html.move_book_actions;
+    != "var backend = new Backend(#{current_user ? current_user.username.inspect : 'null'}, function(message) { flash(message.text, message.level); update_books(); })";
+    != "$(update_books);"

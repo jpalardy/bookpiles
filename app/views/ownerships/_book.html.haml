@@ -1,0 +1,20 @@
+%table
+  %tr
+    %td= link_to(image_tag(book.image_url), ownerships_url(user.username, :anchor => status))
+    %td
+      %table
+        %tr
+          %td Title:
+          %td= book.title
+        %tr
+          %td Authors:
+          %td= book.authors
+        %tr
+          %td Published:
+          %td= book.published_on
+        %tr
+          %td Pages:
+          %td= book.pages
+        %tr
+          %td ISBN:
+          %td= book.isbn

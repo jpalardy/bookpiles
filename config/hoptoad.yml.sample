@@ -1,0 +1,4 @@
+development: &defaults
+  api_key: 'YOUR_HOPTOAD_API_KEY'
+
+caching: *defaults

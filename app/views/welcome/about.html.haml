@@ -1,0 +1,71 @@
+
+= render "header"
+
+.info
+  %p
+
+    This project started out as a list of books in a text file.
+
+  %p
+
+    When I think about a book, I think about its content, the people who talked
+    about it and how it made me feel. Central to those thoughts is the visual
+    representation of the book itself: its cover. A list in a text file was not
+    the best way to think about books.  Over time, I realized that it would be
+    the kind of problem suited for a small web application.
+
+  %p
+
+    I spent many hours working on this project. It used to be an excuse to play
+    with
+
+    = link_to "Ruby on Rails.", "http://rubyonrails.org/"
+
+    It used to be an excuse to play the limits of rich-client Javascript
+    applications. It used to be an excuse to play with client and server-side
+    optimizations, not by necessity but by a conscious effort to want to try
+    things on a project I fully understand.
+
+  %p
+
+    This is an application I designed for myself and that I use, for the lack
+    of a better word, religiously. Hearing about books I want to read, buying a
+    book, starting a new book, or finishing one, these are events that make me
+    want to go to
+
+    = link_to "my profile", ownerships_path("jonathan")
+
+    and update it.
+
+  %p
+
+    This application was initially meant to replace a text file. But the nature
+    of a public display of books created new possibilities. When it comes to
+    people I know, I want to know what they are reading so that we can talk
+    about it the next time we meet.
+
+  %p
+
+    “How was that book?”
+
+  %p
+
+    Also, you can look at what people have read and discover what interests them. I have had
+    a lot of interesting discussions after people browsed the
+
+    = link_to "books I have read.", ownerships_path("jonathan", :anchor => "done")
+
+  %p
+
+    Finally, this is also meant to be a portfolio piece. I can send people to the site to have
+    a look at what I can do. The project is open-source and people can read
+
+    = link_to "the code", "http://github.com/jpalardy/bookpiles"
+
+    and reach their own conclusions.
+
+  %p
+
+    I'm open to comments and suggestions. Let me know what you think.
+
+  = image_tag("email.png", :alt => "Jonathan Palardy's email", :style => "margin-left: 30px")

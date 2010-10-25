@@ -1,0 +1,62 @@
+
+= render "header"
+
+.info.left
+  %h2 What?
+
+  %p
+    Bookpiles is an web application to keep track of:
+
+  %ul
+    %li the books you want to read
+    %li the books you are reading
+    %li the books you have read
+
+  %p
+    You can read more about history of the application in the
+    = link_to "about", about_path
+    section.
+
+  %p
+    Look at
+    = link_to "my books", ownerships_path("jonathan")
+    to get an idea of what an account looks like.
+
+.info.left
+  %h2 Piles?
+
+  %p
+    Imagine piles of books. That's what you are managing. Here's what the name of the piles mean:
+
+  %dl
+    %dt maybe
+    %dd Maybe you want to buy it. Maybe you don't. You are not commited to anything.
+
+    %dt buy
+    %dd You want to buy it. It does not have to be now, but there is an intent.
+
+    %dt ready
+    %dd You bought it. It is sitting in your library, ready to be read.
+
+    %dt reading
+    %dd You are reading it.
+
+    %dt stalled
+    %dd You started to read it but abandoned it. You might come back to it, or not.
+
+    %dt done
+    %dd You read it. It is done.
+
+.info
+  %h2 How?
+
+  %p
+    When you are in your account.
+
+  = image_tag "how_to.jpg", :class => "screenshot"
+
+  %p{:style => "margin-top: 15px"}
+    When you click on a book.
+
+  = image_tag "details.jpg", :class => "screenshot"
+

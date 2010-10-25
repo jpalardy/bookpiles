@@ -1,0 +1,17 @@
+
+- content_for :header do
+  #controls.span-24
+    .search
+      %input{:type => "search", :results => "results", :placeholder => "Search", :onchange => "search_amazon(this.value)", :size => 40, :value => params[:q]}
+    .actions
+      = link_to "<< back to books", ownerships_path(current_user.username)
+
+.books
+
+- content_for :page_js do
+  = javascript_include_tag "amazon.js"
+  = javascript_tag do
+    html.book_actions = html.add_book_actions;
+    != "var backend = new Backend(#{current_user ? current_user.username.inspect : 'null'}, function(message) { flash(message.text, message.level); })";
+
+    != "$(function() { search_amazon(#{ActiveSupport::JSON.encode(params[:q])}) });"

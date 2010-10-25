@@ -1,0 +1,9 @@
+
+- content_for :header do
+  #controls.span-24
+    %ul.menu
+      %li.item{:class => (request.path_info == root_path  && "selected")}
+        = link_to "Home", root_path
+      %li.item{:class => (request.path_info == about_path && "selected")}
+        = link_to "About", about_path
+

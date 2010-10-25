@@ -1,0 +1,8 @@
+development: &defaults
+  access_key_id: 'ACCESS_KEY_ID'
+  secret_key:    'SECRET_KEY'
+  s3_bucket:     'BUCKET_TO_CACHE_PICTURES'
+  s3_prefix:     'PATH_INSIDE_ABOVE_BUCKET'
+  s3_asset_url:  'http://BUCKET.s3.amazonaws.com/PREFIX' # this might be different on cloudfront
+
+caching: *defaults
