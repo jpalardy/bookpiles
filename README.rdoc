@@ -2,7 +2,7 @@
 
 A rails 3 app to track my books.
 
-The application is a live at http://bookpiles.ca/
+The application is a live at http://bookpiles.ca
 
 In particular, my account is found at http://bookpiles.ca/jonathan/books
 
@@ -10,7 +10,14 @@ In particular, my account is found at http://bookpiles.ca/jonathan/books
 
 Copy config/*.yml.sample to config/*.yml.
 
+    cp amazon.yml.sample   amazon.yml
+    cp database.yml.sample database.yml
+    cp hoptoad.yml.sample  hoptoad.yml
+    cp secret.yml.sample   secret.yml
+
 Configure the files with your information.
+
+    vim amazon.yml database.yml hoptoad.yml secret.yml
 
 == License
 
