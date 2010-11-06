@@ -85,11 +85,19 @@ function message(text) {
   $('#content').html('<div id="message">' + text + '</div>');
 }
 
+function loading(enabled) {
+  enabled = enabled === undefined ? true : enabled;
+
+  $('#loader').toggle(enabled);
+}
+
 function flash(text, level, duration) {
   if(!text) { return; }
 
   level = level || 'success'; // success, notice, error
   duration = duration || 5000;
+
+  loading(false);
 
   $('#flash').removeClass().
               addClass(level).
@@ -97,6 +105,11 @@ function flash(text, level, duration) {
               fadeIn('slow').
               delay(duration).
               fadeOut('slow');
+}
+
+function wait_for_backend() {
+  loading();
+  $(document).trigger('close.facebox');
 }
 
 function add_books(books, text) {
@@ -148,19 +161,19 @@ Backend.prototype.init = function(username, callback) {
 
 Backend.prototype.add_book = function(isbn, status) {
   var self = this;
-  $(document).trigger('close.facebox');
+  wait_for_backend();
   $.post("/" + self._username + "/books", {"isbn": isbn, "status": status}, self._callback);
 };
 
 Backend.prototype.move_book = function(isbn, status) {
   var self = this;
-  $(document).trigger('close.facebox');
+  wait_for_backend();
   $.post("/" + self._username + "/books/" + isbn, {"_method": "put", "status": status}, self._callback);
 };
 
 Backend.prototype.delete_book = function(isbn) {
   var self = this;
-  $(document).trigger('close.facebox');
+  wait_for_backend();
   $.post("/" + self._username + "/books/" + isbn, {"_method": "delete"}, self._callback);
 };
 

@@ -180,6 +180,11 @@ ul.menu {
   font-size: 110%;
 }
 
+#loader {
+  float: right;
+  margin: 15px 10px;
+}
+
 #flash {
   float: right;
   margin: 6px 15px 0 0;

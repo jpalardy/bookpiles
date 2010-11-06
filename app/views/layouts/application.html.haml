@@ -24,6 +24,9 @@
             |
             = link_to "login", "#login_form", :rel => "facebox"
 
+        #loader.hide
+          = image_tag "small-ajax-loader.gif"
+
         #flash{:class => flash.keys.first}
           = flash.values.first
 
