@@ -89,7 +89,7 @@ function flash(text, level, duration) {
   if(!text) { return; }
 
   level = level || 'success'; // success, notice, error
-  duration = duration || 3000;
+  duration = duration || 5000;
 
   $('#flash').removeClass().
               addClass(level).

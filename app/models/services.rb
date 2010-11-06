@@ -22,14 +22,14 @@ module Services
           book = user.ownerships.where(:isbn => isbn).first
           return [:notice, "Book already in #{book.status.inspect}."]
         when :status
-          return [:error, "Invalid pile #{status.inspect}."]
+          return [:error, "Invalid pile: #{status}."]
         else
           return [:error, "Could not add book."]
         end
       end
     end
 
-    return [:success, "book added to #{status.inspect}."]
+    return [:success, "Book added to #{status.inspect}."]
   end
 
   def self.update_book(user, isbn, status)
@@ -52,7 +52,7 @@ module Services
 
         case type
         when :status
-          return [:error, "Invalid pile #{status.inspect}."]
+          return [:error, "Invalid pile: #{status}."]
         else
           return [:error, "Could not move book."]
         end

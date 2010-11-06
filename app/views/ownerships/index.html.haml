@@ -7,7 +7,7 @@
     %ul.statuses
       - Status.all.each do |status|
         %li{:class => "status_#{status} tab"}
-          = link_to(status, "##{status}", :onclick => "set_status('#{status}'); return false;")
+          = link_to(status, ownerships_path(@user.username, :anchor => status), :class => "pile")
           %span.count
     .search
       %input{:type => "search", :results => "results", :placeholder => "Filter", :onclick => "if(!this.value) { set_query(this.value) }", :onchange => "set_query(this.value)", :size => 30}

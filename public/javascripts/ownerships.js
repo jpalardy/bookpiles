@@ -87,6 +87,12 @@ $(function() {
   $(document).bind('keypress', {combi:'5', disableInInput: true}, function() { set_status('stalled'); });
   $(document).bind('keypress', {combi:'6', disableInInput: true}, function() { set_status('done'); });
 
+  $('a.pile').live('click', function(e) {
+    e.preventDefault();
+    var status = e.target.hash.replace(/^#/, '');
+    set_status(status);
+  });
+
   var status = location.hash.replace(/^#/, '') || "reading";
 
   set_query("");

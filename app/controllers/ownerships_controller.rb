@@ -48,7 +48,14 @@ class OwnershipsController < ApplicationController
 
     def send_message(message, level=:success)
       respond_to do |format|
+        message = hyperlink(message)
         format.json { render :json => {:text => message, :level => level} }
+      end
+    end
+
+    def hyperlink(message)
+      message.gsub(/"([^"]+)"/) do |word|
+        self.class.helpers.link_to($1, ownerships_path(@user.username, :anchor => $1), :class => "pile")
       end
     end
 end
