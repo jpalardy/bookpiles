@@ -47,6 +47,7 @@ table.book_block {
   float: left;
 }
     table.book_block td {
+      background: url(/images/img-loader.gif) no-repeat 50% 50%;
       vertical-align: bottom;
       text-align: center;
       cursor: pointer;
