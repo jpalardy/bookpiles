@@ -8,12 +8,13 @@ class Library
                            :authors => result.get_array('author').join(', '),
                               :isbn => result.get('isbn'),
                              :pages => result.get('numberofpages').to_i,
-                      :published_on => result.get('publicationdate').to_s,
+                      :published_on => result.get('publicationdate'),
                   :amazon_image_url => result.get_hash('mediumimage').andand[:url]
 
       Rails.logger.info "book: #{book.to_json}"
 
-      book.authors = '-' if book.authors.blank?
+      book.authors      = '-' if book.authors.blank?
+      book.published_on = '-' if book.published_on.blank?
       book
     end.reject { |book| book.isbn.nil? || book.image_url.nil? }
   end
