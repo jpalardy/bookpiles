@@ -8,7 +8,7 @@ class Library
                            :authors => result.get_array('author').join(', '),
                               :isbn => result.get('isbn'),
                              :pages => result.get('numberofpages').to_i,
-                      :published_on => result.get('publicationdate'),
+                      :published_on => result.get('publicationdate').to_s,
                   :amazon_image_url => result.get_hash('mediumimage').andand[:url]
 
       Rails.logger.info "book: #{book.to_json}"
