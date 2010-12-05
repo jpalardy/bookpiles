@@ -41,12 +41,21 @@ queryFilter.onchange = function(books, criteria) {
   }
 };
 
+function update_location_hash() {
+  var lh = statusFilter.criteria().status;
+  if(queryFilter.criteria().text) {
+    lh = lh + "/" + queryFilter.criteria().text;
+  }
+
+  location.hash = lh;
+}
+
 statusFilter.onchange = (function() {
   var last_known_status;
 
   return function(books, criteria) {
     if(criteria.status) {
-      location.hash = criteria.status;
+      update_location_hash();
     }
 
     $("#controls ul.statuses li").removeClass("selected");
@@ -72,6 +81,8 @@ function set_status(status) {
 }
 
 function set_query(text) {
+  $(".search input").val(text);
+
   var re;
   try { re = new RegExp(text, 'i'); } catch(e) {}
   queryFilter.criteria({"text": text, "re": re});
@@ -93,10 +104,12 @@ $(function() {
     set_status(status);
   });
 
-  var status = location.hash.replace(/^#/, '') || "reading";
+  var parts = location.hash.replace(/^#/, '').split('/');
+  var status = parts[0] || "reading";
+  var text   = parts[1] || "";
 
-  set_query("");
   set_status(status);
+  set_query(text);
 
   bookLimiter.onchange = function(books) {
     add_books(books, 'no books in this pile');
