@@ -9,7 +9,6 @@
     = yield :head
   %body
 
-
     .container
       #header.span-24
         = link_to 'bookpiles', root_path, :id => 'logo'
@@ -43,6 +42,7 @@
           = text_field_tag "username"
         %div
           = submit_tag "login", :name => nil
+
       = form_tag "/register", :id => "register_form" do
         %div
           = label_tag "username", "Username:"
@@ -57,9 +57,9 @@
           = text_field_tag "openid", '', :style => "width: 350px"
           %p.description
             This is your OpenID URL. In many cases, the domain (e.g. myopenid.com, yahoo.com) is sufficient.
-
         %div
           = submit_tag "register", :name => nil
+      = yield :templates
 
-    = javascript_include_tag 'jquery-1.4.4.min.js','/facebox/facebox.js','pipes.js','application.js', :cache => 'app'
+    = javascript_include_tag 'jquery-1.4.4.min.js','jquery.tmpl.min.js','/facebox/facebox.js','pipes.js','application.js', :cache => 'app'
     = yield(:page_js)

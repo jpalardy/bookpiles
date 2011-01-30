@@ -1,3 +1,40 @@
+- content_for :templates do
+  %script#template_book_block{:type => "text/x-jquery-tmpl"}
+    %table.book_block
+      %tr
+        %td
+          %img.book_cover{:alt => "${isbn}", :src => "${image_url}", :title => "${title}", :onclick => "show_book(this.alt)"}
+
+  %script#template_book_details{:type => "text/x-jquery-tmpl"}
+    %table#book_details
+      %tr
+        %td.cell
+          %img.book_cover{:alt => "${isbn}", :src => "${image_url}", :title => "${title}"}
+        %td.cell.full
+          %table.details
+            %tr
+              %td Title:
+              %td ${title}
+            %tr
+              %td Authors:
+              %td ${authors}
+            %tr
+              %td Published:
+              %td ${published_on}
+            %tr
+              %td Pages:
+              %td ${pages}
+            %tr
+              %td ISBN:
+              %td ${isbn}
+    %ul
+      %li
+        %a= link_to 'View on amazon.com', "http://www.amazon.com/gp/product/${isbn}"
+      %li
+        Add to:
+        %ul.statuses
+          - Status.all.each do |status|
+            %li= link_to status, "##{status}", :onclick => "backend.add_book('${isbn}', '#{status}'); return false"
 
 - content_for :header do
   #controls.span-24
@@ -11,7 +48,6 @@
 - content_for :page_js do
   = javascript_include_tag "amazon.js"
   = javascript_tag do
-    html.book_actions = html.add_book_actions;
     != "var backend = new Backend(#{current_user ? current_user.username.inspect : 'null'}, function(message) { flash(message.text, message.level); })";
 
     != "$(function() { search_amazon(#{ActiveSupport::JSON.encode(params[:q])}) });"
