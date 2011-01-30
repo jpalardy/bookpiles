@@ -181,7 +181,6 @@ Backend.prototype.delete_book = function(isbn) {
 
 $(function() {
   $.facebox.settings.opacity = 0.6;
-  $(document).bind('keypress', {combi:'/', disableInInput: true}, function() { $('#controls .search input').focus(); return false; });
 
   // if there's a flash, remove it after 5 seconds
   setTimeout(function() { $('#flash').fadeOut('slow'); }, 5000);

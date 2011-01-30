@@ -91,13 +91,6 @@ function set_query(text) {
 //############################################################
 
 $(function() {
-  $(document).bind('keypress', {combi:'1', disableInInput: true}, function() { set_status('maybe'); });
-  $(document).bind('keypress', {combi:'2', disableInInput: true}, function() { set_status('buy'); });
-  $(document).bind('keypress', {combi:'3', disableInInput: true}, function() { set_status('ready'); });
-  $(document).bind('keypress', {combi:'4', disableInInput: true}, function() { set_status('reading'); });
-  $(document).bind('keypress', {combi:'5', disableInInput: true}, function() { set_status('stalled'); });
-  $(document).bind('keypress', {combi:'6', disableInInput: true}, function() { set_status('done'); });
-
   $('a.pile').live('click', function(e) {
     e.preventDefault();
     var status = e.target.hash.replace(/^#/, '');
