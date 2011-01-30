@@ -106,7 +106,7 @@ $(function() {
 
   var parts = location.hash.replace(/^#/, '').split('/');
   var status = parts[0] || "reading";
-  var text   = parts[1] || "";
+  var text   = unescape(parts[1] || "");
 
   set_status(status);
   set_query(text);
