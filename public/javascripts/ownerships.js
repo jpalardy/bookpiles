@@ -1,26 +1,26 @@
 
-// allBooks -> queryFilter -> statusFilter -> bookPager -> DOM
+/*************************************************
+ *
+ * declare the models
+ *
+ * allBooks -> queryFilter -> statusFilter -> bookPager -> DOM
+ *
+ *************************************************/
 
-var queryFilter = new Filter(function(book, criteria) {
+models.allBooks.onchange = function(books) {
+  models.queryFilter.input(books);
+};
+
+//*************************************************
+
+models.queryFilter = new Filter(function(book, criteria) {
   return book.title.match(criteria.re) || book.authors.match(criteria.re) || book.isbn.match(criteria.re);
 });
 
-var statusFilter = new Filter(function(book, criteria) {
-  return book.status == criteria.status;
-});
-
-var bookPager = new Pager(5);
-
-//############################################################
-
-allBooks.onchange = function(books) {
-  queryFilter.input(books);
-};
-
-queryFilter.onchange = function(books, criteria) {
+models.queryFilter.onchange = function(books, criteria) {
   $('#amazon_search').attr('href', '/amazon/books' + (criteria.text ? "?q=" + criteria.text : ""));
 
-  statusFilter.input(books);
+  models.statusFilter.input(books);
 
   var counts = {"maybe": 0, "buy": 0, "ready": 0, "reading": 0, "stalled": 0, "done": 0};
   $.each(books, function(i, book) {
@@ -31,107 +31,127 @@ queryFilter.onchange = function(books, criteria) {
     $('.status_' + status + ' .count').text(count).toggle(count !== 0);
   });
 
-  var current_status = statusFilter.criteria().status;
+  var current_status = models.statusFilter.criteria().status;
   var statuses_by_relevance = ["reading", "done", "stalled", "ready", "buy", "maybe"];
   statuses_by_relevance.unshift(current_status);
 
   var new_status = $.grep(statuses_by_relevance, function(status) { return counts[status] > 0; })[0];
   if(new_status && new_status != current_status) {
-    set_status(new_status);
+    models.statusFilter.status(new_status);
   }
 };
 
-function update_location_hash() {
-  var lh = statusFilter.criteria().status;
-  if(queryFilter.criteria().text) {
-    lh = lh + "/" + queryFilter.criteria().text;
-  }
+//*************************************************
 
-  location.hash = lh;
-}
+models.statusFilter = new Filter(function(book, criteria) {
+  return book.status == criteria.status;
+});
 
-statusFilter.onchange = function(books, criteria) {
+models.statusFilter.status = function(status) {
+  this.criteria({"status": status});
+};
+
+models.statusFilter.onchange = function(books, criteria) {
   if(criteria.status) {
-    update_location_hash();
+    var text = models.queryFilter.criteria().text;
+
+    if(text) {
+      location.hash = criteria.status + "/" + text;
+    } else {
+      location.hash = criteria.status;
+    }
   }
 
   $("#controls ul.statuses li").removeClass("selected");
   $("#controls ul.statuses li.status_" + criteria.status).addClass("selected");
 
   $('#content').empty();
-  bookPager.input(books);
-  fill();
+  models.bookPager.input(books);
 };
 
-//############################################################
-
-function update_books() {
-  $.getJSON('books.json', function(books) { allBooks.input(books); });
-}
-
-function set_status(status) {
-  statusFilter.criteria({"status": status});
-}
-
-function set_query(text) {
-  $(".search input").val(text);
-
-  var re;
-  try { re = new RegExp(text, 'i'); } catch(e) {}
-  queryFilter.criteria({"text": text, "re": re});
-}
-
-//############################################################
-
-function add_books(books, text) {
-  if(books.length === 0) {
-    message(text);
-    return;
-  }
-
-  $('#template_book_block').tmpl(books).appendTo("#content");
-}
+//*************************************************
 
 var HEIGHTS = {"banner": 90, "row": 190};
 
-function fill() {
+models.bookPager = new Pager(5);
+
+models.bookPager.input = function(books) {
+  models.bookPager.input(books);
+  this.fill();
+};
+
+models.bookPager.fill = function() {
   var rows = Math.ceil(($(window).height() - HEIGHTS.banner) / HEIGHTS.row);
-  //rows = rows + 2; // try to get twice as many rows as would fit on the screen
 
   for(var i=0; i<rows; i++) {
-    bookPager.next();
+    this.next();
   }
-}
+};
 
-function pull() {
+models.bookPager.pull = function() {
   var cur_y = $(window).scrollTop() + $(window).height();
   var max_y = $(document).height();
 
   if(cur_y + HEIGHTS.row > max_y) {
-    bookPager.next();
+    this.next();
   }
-}
+};
 
-//############################################################
+/*************************************************
+ *
+ * declare the controller
+ *
+ *************************************************/
+
+var controller = {};
+
+controller.update_books = function() {
+  $.getJSON('books.json', function(books) { models.allBooks.input(books); });
+};
+
+controller.set_status = function set_status(status) {
+  models.statusFilter.status(new_status);
+};
+
+controller.set_query = function (text) {
+  $(".search input").val(text);
+
+  var re;
+  try { re = new RegExp(text, 'i'); } catch(e) {}
+  models.queryFilter.criteria({"text": text, "re": re});
+};
+
+/*************************************************
+ *
+ * hook into the DOM
+ *
+ *************************************************/
 
 $(function() {
-  $('a.pile').live('click', function(e) {
-    e.preventDefault();
-    var status = e.target.hash.replace(/^#/, '');
-    set_status(status);
-  });
-
   var parts = location.hash.replace(/^#/, '').split('/');
   var status = parts[0] || "reading";
   var text   = unescape(parts[1] || "");
 
-  set_status(status);
-  set_query(text);
+  controller.set_status(status);
+  controller.set_query(text);
 
-  bookPager.onchange = function(books) {
-    add_books(books, 'no books in this pile');
+  models.bookPager.onchange = function(books) {
+    if(books.length === 0) {
+      message('no books in this pile');
+      return;
+    }
+
+    $('#template_book_block').tmpl(books).appendTo("#content");
   };
 
-  $(window).scroll(pull);
+  controller.update_books();
+
+  $('a.pile').live('click', function(e) {
+    e.preventDefault();
+    var status = e.target.hash.replace(/^#/, '');
+    controller.set_status(status);
+  });
+
+  $(window).scroll(function() { models.bookPager.pull(); });
 });
 
