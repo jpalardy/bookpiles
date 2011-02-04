@@ -30,15 +30,6 @@ function wait_for_backend() {
   $(document).trigger('close.facebox');
 }
 
-function add_books(books, text) {
-  if(books.length === 0) {
-    message(text);
-    return;
-  }
-
-  $('#content').html($('#template_book_block').tmpl(books));
-}
-
 // beginning of the rendering chain
 var allBooks = new Pipe();
 
@@ -47,7 +38,6 @@ function show_book(isbn) {
 
   $.facebox($('#template_book_details').tmpl(book));
 }
-
 
 //############################################################
 

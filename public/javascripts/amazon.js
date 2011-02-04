@@ -1,4 +1,13 @@
 
+function add_books(books, text) {
+  if(books.length === 0) {
+    message(text);
+    return;
+  }
+
+  $('#content').html($('#template_book_block').tmpl(books));
+}
+
 // allBooks -> DOM
 
 allBooks.onchange = function(books) {

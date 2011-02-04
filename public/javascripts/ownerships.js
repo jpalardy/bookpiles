@@ -1,5 +1,5 @@
 
-// allBooks -> queryFilter -> statusFilter -> bookLimiter -> DOM
+// allBooks -> queryFilter -> statusFilter -> bookPager -> DOM
 
 var queryFilter = new Filter(function(book, criteria) {
   return book.title.match(criteria.re) || book.authors.match(criteria.re) || book.isbn.match(criteria.re);
@@ -9,7 +9,7 @@ var statusFilter = new Filter(function(book, criteria) {
   return book.status == criteria.status;
 });
 
-var bookLimiter = new Limiter(20);
+var bookPager = new Pager(5);
 
 //############################################################
 
@@ -50,25 +50,18 @@ function update_location_hash() {
   location.hash = lh;
 }
 
-statusFilter.onchange = (function() {
-  var last_known_status;
+statusFilter.onchange = function(books, criteria) {
+  if(criteria.status) {
+    update_location_hash();
+  }
 
-  return function(books, criteria) {
-    if(criteria.status) {
-      update_location_hash();
-    }
+  $("#controls ul.statuses li").removeClass("selected");
+  $("#controls ul.statuses li.status_" + criteria.status).addClass("selected");
 
-    $("#controls ul.statuses li").removeClass("selected");
-    $("#controls ul.statuses li.status_" + criteria.status).addClass("selected");
-
-    bookLimiter.input(books);
-
-    if(criteria.status != last_known_status) {
-      bookLimiter.cap(true);
-    }
-    last_known_status = criteria.status;
-  };
-})();
+  $('#content').empty();
+  bookPager.input(books);
+  fill();
+};
 
 //############################################################
 
@@ -90,6 +83,37 @@ function set_query(text) {
 
 //############################################################
 
+function add_books(books, text) {
+  if(books.length === 0) {
+    message(text);
+    return;
+  }
+
+  $('#template_book_block').tmpl(books).appendTo("#content");
+}
+
+var HEIGHTS = {"banner": 90, "row": 190};
+
+function fill() {
+  var rows = Math.ceil(($(window).height() - HEIGHTS.banner) / HEIGHTS.row);
+  //rows = rows + 2; // try to get twice as many rows as would fit on the screen
+
+  for(var i=0; i<rows; i++) {
+    bookPager.next();
+  }
+}
+
+function pull() {
+  var cur_y = $(window).scrollTop() + $(window).height();
+  var max_y = $(document).height();
+
+  if(cur_y + HEIGHTS.row > max_y) {
+    bookPager.next();
+  }
+}
+
+//############################################################
+
 $(function() {
   $('a.pile').live('click', function(e) {
     e.preventDefault();
@@ -104,17 +128,10 @@ $(function() {
   set_status(status);
   set_query(text);
 
-  bookLimiter.onchange = function(books) {
+  bookPager.onchange = function(books) {
     add_books(books, 'no books in this pile');
-
-    if(books.length < this.input().length) {
-      var e = $('<a href="#" class="left">show all</a>');
-      $('#content').append(e);
-      $(e).click(function(e) {
-        e.preventDefault();
-        bookLimiter.cap(false);
-      });
-    }
   };
+
+  $(window).scroll(pull);
 });
 
