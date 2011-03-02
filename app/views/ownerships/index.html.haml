@@ -63,8 +63,9 @@
         = link_to "add a book", amazon_path, :id => "amazon_search"
 
 - content_for :page_js do
+  = javascript_include_tag "bookpiles.js"
   = javascript_include_tag "ownerships.js"
   = javascript_tag do
-    != "var backend = new Backend(#{current_user ? current_user.username.inspect : 'null'}, function(message) { flash(message.text, message.level); update_books(); })";
-    != "$(update_books);"
+    - if current_user
+      != "backend.init(#{current_user.username.inspect}, function() { controller.update_books(); });"
 

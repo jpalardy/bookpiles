@@ -1,22 +1,31 @@
 
-function add_books(books, text) {
+/*************************************************
+ *
+ * declare the models
+ *
+ * allBooks -> DOM
+ *
+ *************************************************/
+
+models.allBooks.onchange = function(books) {
+  add_books(books, "no books found");
   if(books.length === 0) {
-    message(text);
+    message("no books found");
     return;
   }
 
   $('#content').html($('#template_book_block').tmpl(books));
-}
-
-// allBooks -> DOM
-
-allBooks.onchange = function(books) {
-  add_books(books, "no books found");
 };
 
-//############################################################
+/*************************************************
+ *
+ * declare the controller
+ *
+ *************************************************/
 
-function search_amazon(query) {
+var controller = {};
+
+controller.search_amazon = function(query) {
   if(!query) {
     message("search to see results");
     return;
@@ -24,11 +33,16 @@ function search_amazon(query) {
 
   message('<img src="/images/ajax-loader.gif"/>');
   $.getJSON("/amazon/books.json", {"q": query}, function(books) { allBooks.input(books); });
-}
+};
 
-//############################################################
+/*************************************************
+ *
+ * hook into the DOM
+ *
+ *************************************************/
 
 $(function() {
+  // controller.search_amazon(#{ActiveSupport::JSON.encode(params[:q])});
   $("#controls .search input:first").focus();
 });
 
