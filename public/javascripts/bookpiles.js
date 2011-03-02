@@ -13,7 +13,7 @@ models.allBooks = new Pipe();
 
 models.allBooks = function find(isbn){
   return this._input.filter(function(book) {
-    return book.isbn == isbn;
+    return book.isbn === isbn;
   })[0];
 };
 

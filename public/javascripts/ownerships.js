@@ -36,7 +36,7 @@ models.queryFilter.onchange = function(books, criteria) {
   statuses_by_relevance.unshift(current_status);
 
   var new_status = $.grep(statuses_by_relevance, function(status) { return counts[status] > 0; })[0];
-  if(new_status && new_status != current_status) {
+  if(new_status && new_status !== current_status) {
     models.statusFilter.status(new_status);
   }
 };
@@ -44,7 +44,7 @@ models.queryFilter.onchange = function(books, criteria) {
 //*************************************************
 
 models.statusFilter = new Filter(function(book, criteria) {
-  return book.status == criteria.status;
+  return book.status === criteria.status;
 });
 
 models.statusFilter.status = function(status) {
@@ -83,7 +83,8 @@ models.bookPager.input = function(books) {
 models.bookPager.fill = function() {
   var rows = Math.ceil(($(window).height() - HEIGHTS.banner) / HEIGHTS.row);
 
-  for(var i=0; i<rows; i++) {
+  var i;
+  for(i=0; i<rows; i++) {
     this.next();
   }
 };
