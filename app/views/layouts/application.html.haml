@@ -9,8 +9,8 @@
     = yield :head
   %body
 
-    .container
-      #header.span-24
+    #header
+      .wrapper
         = link_to 'bookpiles', root_path, :id => 'logo'
 
         .logister_links
@@ -31,6 +31,7 @@
 
         = yield :header
 
+    .container
       #content.span-24
         = yield
 

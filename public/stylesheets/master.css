@@ -157,6 +157,15 @@ ul.menu {
 #header {
   background: white;
   position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+#header .wrapper {
+  margin: auto;
+  width: 950px
+
 }
 
 #header .logister_links {
