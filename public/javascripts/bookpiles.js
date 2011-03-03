@@ -12,7 +12,7 @@ var models = {};
 models.allBooks = new Pipe();
 
 models.allBooks.find = function(isbn){
-  return this._input.filter(function(book) {
+  return $.grep(this._input, function(book) {
     return book.isbn === isbn;
   })[0];
 };
@@ -88,8 +88,8 @@ var backend = new Backend();
  *************************************************/
 
 $(function() {
-  $('#content').delegate('img.book_cover', 'click', function(e) {
-    var isbn = e.target.alt;
+  $('#content').delegate('img.book_cover', 'click', function() {
+    var isbn = this.alt;
     controller.show_book(isbn);
   });
 });
