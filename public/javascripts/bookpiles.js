@@ -11,10 +11,23 @@ var models = {};
 
 models.allBooks = new Pipe();
 
-models.allBooks = function find(isbn){
+models.allBooks.find = function(isbn){
   return this._input.filter(function(book) {
     return book.isbn === isbn;
   })[0];
+};
+
+/*************************************************
+ *
+ * declare the controller
+ *
+ *************************************************/
+
+var controller = {};
+
+controller.show_book = function(isbn) {
+  var book = models.allBooks.find(isbn);
+  $.facebox($('#template_book_details').tmpl(book));
 };
 
 /*************************************************
@@ -70,4 +83,17 @@ Backend.prototype.loaded = function(message) {
 };
 
 var backend = new Backend();
+
+/*************************************************
+ *
+ * hook into the DOM
+ *
+ *************************************************/
+
+$(function() {
+  $('#content').delegate('img.book_cover', 'click', function(e) {
+    var isbn = e.target.alt;
+    controller.show_book(isbn);
+  });
+});
 

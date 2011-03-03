@@ -75,10 +75,13 @@ var HEIGHTS = {"banner": 90, "row": 190};
 
 models.bookPager = new Pager(5);
 
-models.bookPager.input = function(books) {
-  models.bookPager.input(books);
-  this.fill();
-};
+models.bookPager.input = (function() {
+  var old_input = models.bookPager.input;
+  return function(books) {
+    old_input.call(models.bookPager, books);
+    this.fill();
+  };
+})();
 
 models.bookPager.fill = function() {
   var rows = Math.ceil(($(window).height() - HEIGHTS.banner) / HEIGHTS.row);
@@ -100,21 +103,19 @@ models.bookPager.pull = function() {
 
 /*************************************************
  *
- * declare the controller
+ * extend the controller
  *
  *************************************************/
-
-var controller = {};
 
 controller.update_books = function() {
   $.getJSON('books.json', function(books) { models.allBooks.input(books); });
 };
 
-controller.set_status = function set_status(status) {
-  models.statusFilter.status(new_status);
+controller.set_status = function(status) {
+  models.statusFilter.status(status);
 };
 
-controller.set_query = function (text) {
+controller.set_query = function(text) {
   $(".search input").val(text);
 
   var re;

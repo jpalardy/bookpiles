@@ -19,11 +19,9 @@ models.allBooks.onchange = function(books) {
 
 /*************************************************
  *
- * declare the controller
+ * extend the controller
  *
  *************************************************/
-
-var controller = {};
 
 controller.search_amazon = function(query) {
   if(!query) {
