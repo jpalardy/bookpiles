@@ -39,7 +39,7 @@
 - content_for :header do
   #controls.span-24
     .search
-      %input{:type => "search", :results => "results", :placeholder => "Search", :onchange => "search_amazon(this.value)", :size => 40, :value => params[:q]}
+      %input{:type => "search", :results => "results", :placeholder => "Search", :size => 40, :value => params[:q]}
     .actions
       = link_to "<< back to books", ownerships_path(current_user.username)
 
@@ -50,4 +50,3 @@
   = javascript_include_tag "amazon.js"
   = javascript_tag do
     != "backend.init(#{current_user.username.inspect});"
-    != "$(function() { search_amazon(#{ActiveSupport::JSON.encode(params[:q])}) });"

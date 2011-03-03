@@ -8,7 +8,6 @@
  *************************************************/
 
 models.allBooks.onchange = function(books) {
-  add_books(books, "no books found");
   if(books.length === 0) {
     message("no books found");
     return;
@@ -30,7 +29,7 @@ controller.search_amazon = function(query) {
   }
 
   message('<img src="/images/ajax-loader.gif"/>');
-  $.getJSON("/amazon/books.json", {"q": query}, function(books) { allBooks.input(books); });
+  $.getJSON("/amazon/books.json", {"q": query}, function(books) { models.allBooks.input(books); });
 };
 
 /*************************************************
@@ -41,6 +40,9 @@ controller.search_amazon = function(query) {
 
 $(function() {
   // controller.search_amazon(#{ActiveSupport::JSON.encode(params[:q])});
-  $("#controls .search input:first").focus();
+
+  $('#controls .search input').change(function() {
+    controller.search_amazon(this.value);
+  }).focus();
 });
 

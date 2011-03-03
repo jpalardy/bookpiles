@@ -159,6 +159,12 @@ $(function() {
     controller.set_status(status);
   });
 
+  $('#controls .search input:first').change(function() {
+    controller.set_query(this.value);
+  }).click(function() {
+    controller.set_query(this.value);
+  });
+
   $(window).scroll(function() { models.bookPager.pull(); });
 });
 
