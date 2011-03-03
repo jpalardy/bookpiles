@@ -57,7 +57,7 @@
           = link_to(status, ownerships_path(@user.username, :anchor => status), :class => "pile")
           %span.count
     .search
-      %input{:type => "search", :results => "results", :placeholder => "Filter", :onclick => "if(!this.value) { set_query(this.value) }", :onchange => "set_query(this.value)", :size => 30}
+      %input{:type => "search", :results => "results", :placeholder => "Filter", :onclick => "if(!this.value) { controller.set_query(this.value) }", :onchange => "controller.set_query(this.value)", :size => 30}
     - if current_user == @user
       .actions
         = link_to "add a book", amazon_path, :id => "amazon_search"
