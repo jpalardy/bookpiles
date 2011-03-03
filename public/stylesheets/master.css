@@ -69,6 +69,18 @@ img.book_cover {
   padding: 5px;
 }
 
+#facebox .content {
+  width: auto;
+}
+
+.small_popup {
+  width: 370px;
+}
+
+.small_popup .submit {
+  margin-top: 5px;
+}
+
 #book_details {
   width: 600px;
 }

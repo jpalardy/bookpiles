@@ -37,31 +37,32 @@
 
     .templates.hide
       #login_form
-        = form_tag "/login" do
-          %div
-            = label_tag "username", "Username:"
-          %div
-            = text_field_tag "username"
-          %div
-            = submit_tag "login", :name => nil
-
+        .small_popup
+          = form_tag "/login" do
+            %div
+              = label_tag "username", "Username:"
+            %div
+              = text_field_tag "username"
+            .submit
+              = submit_tag "login", :name => nil
       #register_form
-        = form_tag "/register" do
-          %div
-            = label_tag "username", "Username:"
-          %div
-            = text_field_tag "username"
-            %p.description
-              This is the username you would like to use on bookpiles.
-          %div
-            = label_tag "openid", "OpenID:"
-            = link_to "What is OpenID?", "http://openid.net/get-an-openid/what-is-openid/", :style => "font-weight: normal; font-size: 80%; margin-left: 10px"
-          %div
-            = text_field_tag "openid", '', :style => "width: 350px"
-            %p.description
-              This is your OpenID URL. In many cases, the domain (e.g. myopenid.com, yahoo.com) is sufficient.
-          %div
-            = submit_tag "register", :name => nil
+        .small_popup
+          = form_tag "/register" do
+            %div
+              = label_tag "username", "Username:"
+            %div
+              = text_field_tag "username"
+              %p.description
+                This is the username you would like to use on bookpiles.
+            %div
+              = label_tag "openid", "OpenID:"
+              = link_to "What is OpenID?", "http://openid.net/get-an-openid/what-is-openid/", :style => "font-weight: normal; font-size: 80%; margin-left: 10px"
+            %div
+              = text_field_tag "openid", '', :style => "width: 350px"
+              %p.description
+                This is your OpenID URL. In many cases, the domain (e.g. myopenid.com, yahoo.com) is sufficient.
+            .submit
+              = submit_tag "register", :name => nil
       = yield :templates
 
     = javascript_include_tag 'jquery-1.5.min.js','/facebox/facebox.js','jquery.tmpl.min.js','pipes.js','application.js', :cache => 'app'
