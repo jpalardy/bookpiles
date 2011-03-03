@@ -37,12 +37,7 @@ controller.show_book = function(isbn) {
  *************************************************/
 
 function Backend(username, callback) {
-  if (! (this instanceof arguments.callee)) {
-    return new arguments.callee(arguments);
-  }
-
   var self = this;
-
   self.init(username, callback);
 }
 
@@ -55,19 +50,19 @@ Backend.prototype.init = function(username, callback) {
 Backend.prototype.add_book = function(isbn, status) {
   var self = this;
   self.loading(true);
-  $.post("/" + self._username + "/books", {"isbn": isbn, "status": status}, self._callback);
+  $.post("/" + self._username + "/books", {"isbn": isbn, "status": status}, function(message) { self.loaded(message); });
 };
 
 Backend.prototype.move_book = function(isbn, status) {
   var self = this;
   self.loading(true);
-  $.post("/" + self._username + "/books/" + isbn, {"_method": "put", "status": status}, self._callback);
+  $.post("/" + self._username + "/books/" + isbn, {"_method": "put", "status": status}, function(message) { self.loaded(message); });
 };
 
 Backend.prototype.delete_book = function(isbn) {
   var self = this;
   self.loading(true);
-  $.post("/" + self._username + "/books/" + isbn, {"_method": "delete"}, self._callback);
+  $.post("/" + self._username + "/books/" + isbn, {"_method": "delete"}, function(message) { self.loaded(message); });
 };
 
 Backend.prototype.loading = function(loading) {
@@ -79,7 +74,9 @@ Backend.prototype.loaded = function(message) {
   var self = this;
   self.loading(false);
   flash(message.text, message.level);
-  self._callback();
+  if(self._callback) {
+    self._callback();
+  }
 };
 
 var backend = new Backend();
