@@ -81,7 +81,7 @@ models.bookPager.input = (function() {
     old_input.call(models.bookPager, books);
     this.fill();
   };
-})();
+}());
 
 models.bookPager.fill = function() {
   var rows = Math.ceil(($(window).height() - HEIGHTS.banner) / HEIGHTS.row);
