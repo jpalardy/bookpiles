@@ -116,12 +116,12 @@ controller.set_status = function(status) {
 };
 
 controller.set_query = function(text) {
-  $(".search input").val(text);
-
   // don't set again if the same -- useful on empty
   if(models.queryFilter.criteria().text === text) {
     return;
   }
+
+  $(".search input").val(text);
 
   var re;
   try { re = new RegExp(text, 'i'); } catch(e) {}
