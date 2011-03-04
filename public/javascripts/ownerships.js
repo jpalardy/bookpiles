@@ -154,9 +154,11 @@ $(function() {
   controller.update_books();
 
   $('a.pile').live('click', function(e) {
-    e.preventDefault();
-    var status = e.target.hash.replace(/^#/, '');
-    controller.set_status(status);
+    if(location.pathname === e.target.pathname) {
+      e.preventDefault();
+      var status = e.target.hash.replace(/^#/, '');
+      controller.set_status(status);
+    }
   });
 
   $('#controls .search input:first').change(function() {
