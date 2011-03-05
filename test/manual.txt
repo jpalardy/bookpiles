@@ -1,0 +1,99 @@
+
+-------------------------------------------------
+LOOK AROUND
+
+- home
+- about
+- click logo -> home
+
+- register box looks OK, focus in text field
+- login box looks OK, focus in text field
+
+-------------------------------------------------
+JONATHAN'S ACCOUNT
+
+- change piles
+- infinite-scroll
+- click search (no jump)
+- type "secret", press enter
+- hover a book, title is given as hint
+- click a book
+- open in a new tab "view on amazon"
+- popup goes away on ESC
+- click a book
+- popup goes away on click out
+- double-click "secret" in the search field, replace with "parachute" (pile changes to stalled)
+- click "X" in search, all books appear
+- search for "scala"
+- hard refresh the page, pile and search are restored
+- remove text from search, press enter
+
+-------------------------------------------------
+LOGIN / LOGOUT
+
+- try to login with blank field, watch it fail
+
+- try to login as non-existent user
+- login - mess up openid login
+- successful login
+- logout
+
+- go to another account
+- click on username (next to logout link)
+- back in the user's account
+
+- go to another account
+- login, back in another account
+- logout, still in another account
+
+-------------------------------------------------
+LOGGED IN: YOUR ACCOUNT
+
+[repeat steps for logged out above]
+
+- click a book (more options)
+- move to another pile
+- follow manually, wait for flash to disappear
+- move to another pile
+- follow with flash link
+- move to the same pile, confirm flash
+- click "delete", cancel
+- click "delete", confirm
+
+-------------------------------------------------
+LOGGED IN: ADDING BOOKS FROM AMAZON
+
+- click "add a book", cursor is in search field
+- search for a book
+- add a book, follow with flash link
+
+- click "add a book"
+- search for the same book
+- try to add, doesn't work, follow with flash link
+
+- search for a book
+- click "add a book", text field is populated, search is running !
+- add a book missing from the database, follow with flash link, cover was added to S3
+
+- click "add a book"
+- search for a book that doesn't exist
+
+-------------------------------------------------
+LOGGED IN: ADDING BOOKS FROM ANOTHER ACCOUNT
+
+- go to another account
+- click on a book
+- open in a new tab "view on amazon"
+
+- click on a book
+- click a pile
+- follow with flash link
+
+-------------------------------------------------
+REGISTER
+
+- try to register with blank field, watch it fail
+- try to register with existing username, watch it fail
+
+- register with new username
+
