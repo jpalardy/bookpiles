@@ -154,7 +154,9 @@ $(function() {
   controller.update_books();
 
   $('a.pile').live('click', function(e) {
-    if(location.pathname === e.target.pathname) {
+    var page_account = location.pathname.match(/\/?([^\/]+)\//)[1];
+    var link_account = e.target.pathname.match(/\/?([^\/]+)\//)[1];
+    if(page_account === link_account) {
       e.preventDefault();
       var status = e.target.hash.replace(/^#/, '');
       controller.set_status(status);
