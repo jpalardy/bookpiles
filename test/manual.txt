@@ -72,7 +72,7 @@ LOGGED IN: ADDING BOOKS FROM AMAZON
 - try to add, doesn't work, follow with flash link
 
 - search for a book
-- click "add a book", text field is populated, search is running !
+- click "add a book", text field is populated, search is running
 - add a book missing from the database, follow with flash link, cover was added to S3
 
 - click "add a book"

@@ -50,3 +50,4 @@
   = javascript_include_tag "amazon.js"
   = javascript_tag do
     != "backend.init(#{current_user.username.inspect});"
+    != "controller.search_amazon('#{params[:q]}');"
