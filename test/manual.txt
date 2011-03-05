@@ -43,7 +43,7 @@ LOGIN / LOGOUT
 - back in the user's account
 
 - go to another account
-- login, back in another account
+- login, back in another account #
 - logout, still in another account
 
 -------------------------------------------------
