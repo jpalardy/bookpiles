@@ -5,7 +5,7 @@ class Ownership < ActiveRecord::Base
 
   scope :recent, order("updated_at desc")
 
-  validates_presence_of   :user, :book, :status, :isbn
+  validates_presence_of   :user, :book, :status
   validates_inclusion_of  :status, :in => Status.all
   validates_uniqueness_of :book_id, :scope => :user_id, :message => "is already in your books"
 

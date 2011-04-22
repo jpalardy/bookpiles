@@ -18,17 +18,17 @@ class OwnershipsController < ApplicationController
   end
 
   def create
-    status, message = Services.add_book(@user, params[:isbn], params[:status])
+    status, message = Services.add_book(@user, params[:asin], params[:status])
     send_message(message, status)
   end
 
   def update
-    status, message = Services.update_book(@user, params[:isbn], params[:status])
+    status, message = Services.update_book(@user, params[:asin], params[:status])
     send_message(message, status)
   end
 
   def destroy
-    status, message = Services.delete_book(@user, params[:isbn])
+    status, message = Services.delete_book(@user, params[:asin])
     send_message(message, status)
   end
 

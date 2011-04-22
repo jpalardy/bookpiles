@@ -28,6 +28,12 @@ JONATHAN'S ACCOUNT
 - hard refresh the page, pile and search are restored
 - remove text from search, press enter
 
+# ISBN/ASIN mismatch
+- type "the sparrow", press enter
+- hover a book, title is given as hint
+- click a book
+- open in a new tab "view on amazon"
+
 -------------------------------------------------
 LOGIN / LOGOUT
 
@@ -36,14 +42,15 @@ LOGIN / LOGOUT
 - try to login as non-existent user
 - login - mess up openid login
 - successful login
-- logout
 
 - go to another account
 - click on username (next to logout link)
 - back in the user's account
 
+- logout
+
 - go to another account
-- login, back in another account #
+[BUG] - login, back in another account
 - logout, still in another account
 
 -------------------------------------------------

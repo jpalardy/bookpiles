@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110421012717) do
+ActiveRecord::Schema.define(:version => 20110422020207) do
 
   create_table "books", :force => true do |t|
     t.string   "title",                           :null => false
@@ -23,9 +23,10 @@ ActiveRecord::Schema.define(:version => 20110421012717) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "reviewed_on"
+    t.string   "asin",                            :null => false
   end
 
-  add_index "books", ["isbn"], :name => "index_books_on_isbn"
+  add_index "books", ["asin"], :name => "index_books_on_asin"
 
   create_table "events", :force => true do |t|
     t.string   "status",       :null => false
@@ -40,12 +41,9 @@ ActiveRecord::Schema.define(:version => 20110421012717) do
     t.integer  "user_id",    :null => false
     t.integer  "book_id",    :null => false
     t.string   "status",     :null => false
-    t.string   "isbn",       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "ownerships", ["user_id", "isbn"], :name => "index_ownerships_on_user_id_and_isbn"
 
   create_table "users", :force => true do |t|
     t.string   "username",   :null => false

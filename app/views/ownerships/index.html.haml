@@ -3,13 +3,13 @@
     %table.book_block
       %tr
         %td
-          %img.book_cover{:alt => "${isbn}", :src => "${image_url}", :title => "${title}"}
+          %img.book_cover{:alt => "${asin}", :src => "${image_url}", :title => "${title}"}
 
   %script#template_book_details{:type => "text/x-jquery-tmpl"}
     %table#book_details
       %tr
         %td.cell
-          %img.book_cover{:alt => "${isbn}", :src => "${image_url}", :title => "${title}"}
+          %img.book_cover{:alt => "${asin}", :src => "${image_url}", :title => "${title}"}
         %td.cell.full
           %table.details
             %tr
@@ -29,22 +29,22 @@
               %td ${isbn}
     %ul
       %li
-        %a= link_to 'View on amazon.com', "http://www.amazon.com/gp/product/${isbn}"
+        %a= link_to 'View on amazon.com', "http://www.amazon.com/dp/${asin}"
       - if logged_in?
         - if current_user.username == @user.username
           %li
             Move to:
             %ul.statuses
               - Status.all.each do |status|
-                %li= link_to status, "##{status}", :onclick => "backend.move_book('${isbn}', '#{status}'); return false"
+                %li= link_to status, "##{status}", :onclick => "backend.move_book('${asin}', '#{status}'); return false"
           %li
-            = link_to "Delete", "#", :onclick => "if(confirm('delete book?')) { backend.delete_book('${isbn}') }; return false"
+            = link_to "Delete", "#", :onclick => "if(confirm('delete book?')) { backend.delete_book('${asin}') }; return false"
         - else
           %li
             Add to:
             %ul.statuses
               - Status.all.each do |status|
-                %li= link_to status, "##{status}", :onclick => "backend.add_book('${isbn}', '#{status}'); return false"
+                %li= link_to status, "##{status}", :onclick => "backend.add_book('${asin}', '#{status}'); return false"
 
 - content_for :head do
   = auto_discovery_link_tag(:atom, ownerships_url(@user.username, :format => 'atom'), :title => "#{@user.username}'s books")

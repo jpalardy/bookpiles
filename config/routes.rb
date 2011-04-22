@@ -13,6 +13,6 @@ Bookpiles::Application.routes.draw do
   match '/:username/books(.:format)', :to => "ownerships#index",   :via => "get",   :as => "ownerships"
   match '/:username/books',           :to => "ownerships#create",  :via => "post"
 
-  match '/:username/books/:isbn',     :to => "ownerships#update",  :via => "put",   :as => "ownership"
-  match '/:username/books/:isbn',     :to => "ownerships#destroy", :via => "delete"
+  match '/:username/books/:asin',     :to => "ownerships#update",  :via => "put",   :as => "ownership"
+  match '/:username/books/:asin',     :to => "ownerships#destroy", :via => "delete"
 end

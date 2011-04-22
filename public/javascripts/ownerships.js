@@ -14,7 +14,7 @@ models.allBooks.onchange = function(books) {
 //*************************************************
 
 models.queryFilter = new Filter(function(book, criteria) {
-  return book.title.match(criteria.re) || book.authors.match(criteria.re) || book.isbn.match(criteria.re);
+  return book.title.match(criteria.re) || book.authors.match(criteria.re) || book.isbn.match(criteria.re) || book.asin.match(criteria.re);
 });
 
 models.queryFilter.onchange = function(books, criteria) {

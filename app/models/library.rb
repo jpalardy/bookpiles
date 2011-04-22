@@ -7,6 +7,7 @@ class Library
       book = Book.new        :title => result.get('title'),
                            :authors => result.get_array('author').join(', '),
                               :isbn => result.get('isbn'),
+                              :asin => result.get('asin'),
                              :pages => result.get('numberofpages').to_i,
                       :published_on => result.get('publicationdate'),
                   :amazon_image_url => result.get_hash('mediumimage').andand[:url]
@@ -16,10 +17,10 @@ class Library
       book.authors      = '-' if book.authors.blank?
       book.published_on = '-' if book.published_on.blank?
       book
-    end.reject { |book| book.isbn.nil? || book.image_url.nil? }
+    end.reject { |book| [book.isbn, book.asin, book.image_url].any?(&:nil?) }
   end
 
-  def self.book_by_isbn(isbn)
-    books_by_query(isbn, 1).find {|book| book.isbn == isbn}
+  def self.book_by_asin(asin)
+    books_by_query(asin, 1).detect {|book| book.asin == asin}
   end
 end

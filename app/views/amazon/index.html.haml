@@ -3,13 +3,13 @@
     %table.book_block
       %tr
         %td
-          %img.book_cover{:alt => "${isbn}", :src => "${image_url}", :title => "${title}"}
+          %img.book_cover{:alt => "${asin}", :src => "${image_url}", :title => "${title}"}
 
   %script#template_book_details{:type => "text/x-jquery-tmpl"}
     %table#book_details
       %tr
         %td.cell
-          %img.book_cover{:alt => "${isbn}", :src => "${image_url}", :title => "${title}"}
+          %img.book_cover{:alt => "${asin}", :src => "${image_url}", :title => "${title}"}
         %td.cell.full
           %table.details
             %tr
@@ -29,12 +29,12 @@
               %td ${isbn}
     %ul
       %li
-        %a= link_to 'View on amazon.com', "http://www.amazon.com/gp/product/${isbn}"
+        %a= link_to 'View on amazon.com', "http://www.amazon.com/dp/${asin}"
       %li
         Add to:
         %ul.statuses
           - Status.all.each do |status|
-            %li= link_to status, "##{status}", :onclick => "backend.add_book('${isbn}', '#{status}'); return false"
+            %li= link_to status, "##{status}", :onclick => "backend.add_book('${asin}', '#{status}'); return false"
 
 - content_for :header do
   #controls.span-24

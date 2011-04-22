@@ -11,9 +11,9 @@ var models = {};
 
 models.allBooks = new Pipe();
 
-models.allBooks.find = function(isbn){
+models.allBooks.find = function(asin){
   return $.grep(this._input, function(book) {
-    return book.isbn === isbn;
+    return book.asin === asin;
   })[0];
 };
 
@@ -25,8 +25,8 @@ models.allBooks.find = function(isbn){
 
 var controller = {};
 
-controller.show_book = function(isbn) {
-  var book = models.allBooks.find(isbn);
+controller.show_book = function(asin) {
+  var book = models.allBooks.find(asin);
   $.facebox($('#template_book_details').tmpl(book));
 };
 
@@ -47,22 +47,22 @@ Backend.prototype.init = function(username, callback) {
   self._callback = callback;
 };
 
-Backend.prototype.add_book = function(isbn, status) {
+Backend.prototype.add_book = function(asin, status) {
   var self = this;
   self.loading(true);
-  $.post("/" + self._username + "/books", {"isbn": isbn, "status": status}, function(message) { self.loaded(message); });
+  $.post("/" + self._username + "/books", {"asin": asin, "status": status}, function(message) { self.loaded(message); });
 };
 
-Backend.prototype.move_book = function(isbn, status) {
+Backend.prototype.move_book = function(asin, status) {
   var self = this;
   self.loading(true);
-  $.post("/" + self._username + "/books/" + isbn, {"_method": "put", "status": status}, function(message) { self.loaded(message); });
+  $.post("/" + self._username + "/books/" + asin, {"_method": "put", "status": status}, function(message) { self.loaded(message); });
 };
 
-Backend.prototype.delete_book = function(isbn) {
+Backend.prototype.delete_book = function(asin) {
   var self = this;
   self.loading(true);
-  $.post("/" + self._username + "/books/" + isbn, {"_method": "delete"}, function(message) { self.loaded(message); });
+  $.post("/" + self._username + "/books/" + asin, {"_method": "delete"}, function(message) { self.loaded(message); });
 };
 
 Backend.prototype.loading = function(loading) {
@@ -89,8 +89,8 @@ var backend = new Backend();
 
 $(function() {
   $('#content').delegate('img.book_cover', 'click', function() {
-    var isbn = this.alt;
-    controller.show_book(isbn);
+    var asin = this.alt;
+    controller.show_book(asin);
   });
 });
 
