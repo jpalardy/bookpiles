@@ -117,6 +117,8 @@ img.book_cover {
       position: relative;
     }
         #controls ul.statuses li.tab a {
+          position: relative;
+          z-index: 50;
           display: block;
           text-decoration: none;
           padding: 10px 15px;
@@ -127,6 +129,7 @@ img.book_cover {
     #controls ul.statuses .count {
       color: #eee6d0;
       position: absolute;
+      z-index: 25;
       top:   2px;
       right: 5px;
       font-size: 9px;
