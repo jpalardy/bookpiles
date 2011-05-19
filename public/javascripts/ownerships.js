@@ -14,7 +14,14 @@ models.allBooks.onchange = function(books) {
 //*************************************************
 
 models.queryFilter = new Filter(function(book, criteria) {
-  return book.title.match(criteria.re) || book.authors.match(criteria.re) || book.isbn.match(criteria.re) || book.asin.match(criteria.re);
+  var fields = [book.title, book.authors, book.isbn, book.asin, book.notes];
+  var i, n = fields.length;
+
+  for(i=0; i<n; i++) {
+    if(fields[i].match(criteria.re)) { return true; }
+  }
+
+  return false;
 });
 
 models.queryFilter.onchange = function(books, criteria) {

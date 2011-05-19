@@ -10,7 +10,7 @@ class Ownership < ActiveRecord::Base
   validates_uniqueness_of :book_id, :scope => :user_id
 
   def as_json(options=nil)
-    book.as_json.merge(:status => status, :notes => notes)
+    book.as_json.merge(:status => status, :notes => notes.to_s)
   end
 
   private
