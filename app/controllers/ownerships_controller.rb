@@ -6,7 +6,7 @@ class OwnershipsController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
-        ownerships = @user.ownerships.recent.includes(:book)
+        ownerships = @user.ownerships.order("moved_at desc").includes(:book)
         render :json => ownerships.all
       end
       format.atom do
