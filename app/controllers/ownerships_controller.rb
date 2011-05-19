@@ -23,7 +23,12 @@ class OwnershipsController < ApplicationController
   end
 
   def update
-    status, message = Services.update_book(@user, params[:asin], params[:status])
+    if params[:status]
+      status, message = Services.move_book(@user, params[:asin], params[:status])
+    elsif params[:notes]
+      status, message = Services.add_notes_to_book(@user, params[:asin], params[:notes])
+    end
+
     send_message(message, status)
   end
 

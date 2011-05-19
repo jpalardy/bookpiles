@@ -99,6 +99,17 @@ img.book_cover {
       width: 100%;
     }
 
+#facebox textarea#notes {
+  margin-top: 20px;
+  width: 550px;
+  height: 75px;
+}
+
+#facebox pre.notes {
+  font-size: 80%;
+  color: #777;
+}
+
 /**************************************************************/
 
 #controls {

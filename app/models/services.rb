@@ -32,7 +32,23 @@ module Services
     return [:success, "Book added to #{status.inspect}."]
   end
 
-  def self.update_book(user, asin, status)
+  def self.add_notes_to_book(user, asin, notes)
+    book = Book.where(:asin => asin).first
+    ownership = user.ownerships.where(:book_id => book.id).first
+
+    if ownership.nil?
+      return [:error, "Book was not found."]
+    end
+
+    Ownership.transaction do
+      ownership.notes = notes
+      return [:error, "Could not add notes to book."] unless ownership.save
+    end
+
+    return [:success, "Notes added."]
+  end
+
+  def self.move_book(user, asin, status)
     book = Book.where(:asin => asin).first
     ownership = user.ownerships.where(:book_id => book.id).first
 

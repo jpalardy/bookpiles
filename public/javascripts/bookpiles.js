@@ -59,6 +59,12 @@ Backend.prototype.move_book = function(asin, status) {
   $.post("/" + self._username + "/books/" + asin, {"_method": "put", "status": status}, function(message) { self.loaded(message); });
 };
 
+Backend.prototype.add_notes_to_book = function(asin, notes) {
+  var self = this;
+  self.loading(true);
+  $.post("/" + self._username + "/books/" + asin, {"_method": "put", "notes": notes}, function(message) { self.loaded(message); });
+};
+
 Backend.prototype.delete_book = function(asin) {
   var self = this;
   self.loading(true);
