@@ -42,10 +42,19 @@ module Services
 
     Ownership.transaction do
       ownership.notes = notes
-      return [:error, "Could not add notes to book."] unless ownership.save
-    end
 
-    return [:success, "Notes added."]
+      if ownership.save
+        return [:success, "Notes added."]
+      else
+        type, message = ownership.errors.first
+
+        if type == :notes && message =~ /is too long/
+          return [:error, "Text " + message]
+        end
+
+        return [:error, "Could not add notes to book."]
+      end
+    end
   end
 
   def self.move_book(user, asin, status)
