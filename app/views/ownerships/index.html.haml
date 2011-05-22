@@ -39,7 +39,7 @@
                 %li= link_to status, "##{status}", :onclick => "backend.move_book('${asin}', '#{status}'); return false"
           %li
             = link_to "Delete", "#", :onclick => "if(confirm('delete book?')) { backend.delete_book('${asin}') }; return false"
-          - form_tag "books/${asin}", :method => :put, :id => "add_notes", :onsubmit => "backend.add_notes_to_book('${asin}', $(this).find('textarea').val()); return false" do
+          = form_tag "books/${asin}", :method => :put, :id => "add_notes", :onsubmit => "backend.add_notes_to_book('${asin}', $(this).find('textarea').val()); return false" do
             = text_area_tag :notes, "${notes}"
             %br
             = submit_tag "save"
