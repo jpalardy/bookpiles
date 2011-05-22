@@ -104,3 +104,14 @@ REGISTER
 
 - register with new username
 
+-------------------------------------------------
+# NOTES -- LOGGED OUT
+- look for #audio
+- click on book details -> look for text (pre)
+
+# NOTES -- LOGGED IN
+- look for #audio
+- click on book details -> look for text (textarea)
+- change text, save -> order of books has not changed, text was saved
+- reload, text is still there
+
