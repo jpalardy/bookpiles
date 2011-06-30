@@ -12,11 +12,11 @@ ssh_options[:compression] = false
 set  :application,    "bookpiles"
 
 set  :use_sudo,       false
-role :app,            "jonathan@acidfog.com"
-role :db,             "jonathan@acidfog.com", :primary => true
+role :app,            "jonathan@jpalardy.com"
+role :db,             "jonathan@jpalardy.com", :primary => true
 
 set  :scm, :git
-set  :repository,     "jonathan@acidfog.com:.repos/#{application}.git"
+set  :repository,     "jonathan@jpalardy.com:.repos/#{application}.git"
 
 set  :deploy_via,     :remote_cache
 
