@@ -1,4 +1,5 @@
 development: &defaults
+  associate_tag: 'ASSOCIATE_TAG'
   access_key_id: 'ACCESS_KEY_ID'
   secret_key:    'SECRET_KEY'
   s3_bucket:     'BUCKET_TO_CACHE_PICTURES'

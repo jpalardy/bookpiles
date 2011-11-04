@@ -4,13 +4,13 @@ class Library
     results = Amazon::Ecs.item_search(query, :response_group => 'Medium', :item_page => page, :search_index => "Books")
 
     results.items.map do |result|
-      book = Book.new        :title => result.get('title'),
-                           :authors => result.get_array('author').join(', '),
-                              :isbn => result.get('isbn'),
-                              :asin => result.get('asin'),
-                             :pages => result.get('numberofpages').to_i,
-                      :published_on => result.get('publicationdate'),
-                  :amazon_image_url => result.get_hash('mediumimage').andand[:url]
+      book = Book.new        :title => result.get('ItemAttributes/Title'),
+                           :authors => result.get_array('ItemAttributes/Author').join(', '),
+                              :isbn => result.get('ItemAttributes/ISBN'),
+                              :asin => result.get('ASIN'),
+                             :pages => result.get('ItemAttributes/NumberOfPages').to_i,
+                      :published_on => result.get('ItemAttributes/PublicationDate'),
+                  :amazon_image_url => result.get('MediumImage/URL')
 
       Rails.logger.info "book: #{book.to_json}"
 
